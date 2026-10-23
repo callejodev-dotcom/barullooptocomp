@@ -44,7 +44,7 @@ entrada ─┬─ atenuador (resistencia en serie e a fotorresistencia a terra) 
          └────────────────────────────── (realimentación: o detector escoita a saída do atenuador)
 ```
 
-- **O panel** acéndese co sinal do detector rectificado, e a súa luz medra coma unha potencia del (ao cadrado comprimindo, á sexta limitando). Ao ir por realimentación, esa potencia é a curva: proporción 1 + potencia e un xeonllo que sae só.
+- **O panel** acéndese co sinal do detector rectificado, e a súa luz medra coma unha potencia del (ao cadrado comprimindo, á sexta limitando) ata que satura (como moito, uns 30 dB de redución). Ao ir por realimentación, esa potencia é a curva: proporción 1 + potencia e un xeonllo que sae só.
 - **A fotorresistencia** colle a luz en ~10 ms e sóltaa en dúas metades (contadas en dB): a primeira nun centenar de ms e a segunda amodo, máis amodo canto máis tempo estivo iluminada (a memoria da célula: tras uns segundos comprimindo, tarda o dobre en volver).
 - **O atenuador** é un divisor: ganancia = 1 / (1 + condutancia).
 - **As válvulas**: unha curva suave e un chisco asimétrica (harmónicos pares), a dobre frecuencia de mostraxe para que os harmónicos non volvan como ruído.

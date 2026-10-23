@@ -210,6 +210,31 @@ int main (int argc, char** argv)
         return 0;
     }
 
+    // canto comprime cada preset sobre un son (a media e o máximo da redución, en dB)
+    if (mode == "--reducion" && argc > 2)
+    {
+        juce::AudioFormatManager fm; fm.registerBasicFormats();
+        std::unique_ptr<juce::AudioFormatReader> r (fm.createReaderFor (juce::File (juce::String (argv[2]))));
+        if (r == nullptr) return 1;
+        juce::AudioBuffer<float> in ((int) r->numChannels, (int) r->lengthInSamples);
+        r->read (&in, 0, (int) r->lengthInSamples, 0, true, true);
+        for (int i = 0; i < opto::NUM_PRESETS; ++i)
+        {
+            BOProcessor p; p.cargarPreset (i);
+            p.setPlayConfigDetails (2, 2, r->sampleRate, 512); p.prepareToPlay (r->sampleRate, 512);
+            juce::AudioBuffer<float> buf (2, 512); juce::MidiBuffer m;
+            double suma = 0, peor = 0; int n = 0;
+            for (int pos = 0; pos + 512 <= in.getNumSamples(); pos += 512)
+            {
+                for (int c = 0; c < 2; ++c) buf.copyFrom (c, 0, in, c % in.getNumChannels(), pos, 512);
+                p.processBlock (buf, m);
+                suma += p.reducion.load(); peor = std::min (peor, (double) p.reducion.load()); ++n;
+            }
+            std::printf ("%-22s media %6.1f dB  máximo %6.1f dB\n", opto::PRESETS[i].nome, suma / n, peor);
+        }
+        return 0;
+    }
+
     int fails = 0;
     auto check = [&fails] (bool ok, const juce::String& what, const juce::String& extra = {})
     {

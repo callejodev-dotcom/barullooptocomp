@@ -86,6 +86,8 @@ public:
     // a luz que pide o detector (xa coa súa curva) → a condutancia da fotorresistencia
     double paso (double obx)
     {
+        // o panel non dá máis luz ca a que dá: satura suave (como moito, uns 30 dB de redución)
+        obx = LUZ_MAX * std::tanh (obx / LUZ_MAX);
         luz += (obx - luz) * (obx > luz ? kPanelSobe : kPanelBaixa);
         // as dúas metades da fotorresistencia, en ln (1 + condutancia), que vai coma os dB do que
         // comprime: suben igual e baixan cada unha ao seu tempo (a metade dos dB, axiña; o resto, amodo)
@@ -101,6 +103,8 @@ public:
     }
     double brillo() const { return luz; }
     double lembranza() const { return memoria; }
+
+    static constexpr double LUZ_MAX = 30.0;
 
 private:
     double coef (double s) const { return 1.0 - std::exp (-1.0 / (std::max (1e-5, s) * fs)); }
