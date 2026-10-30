@@ -2,6 +2,11 @@
 
 Unha ferramenta de [Escoita](https://www.escoita.link).
 
+## Novidades na 0.1.1
+
+- **Limitador de seguridade novo**: mira 1,5 ms por diante e baixa suave antes do pico, en vez de achatalo. Aínda que o son vaia moi forte, xa non soa a clip. O DAW compensa só eses 1,5 ms (a latencia que declara o plugin).
+- O bypass vai co mesmo atraso, á par do son procesado.
+
 ## Novidades na 0.1.0
 
 - A primeira versión: a célula óptica peza a peza (o panel, a fotorresistencia coa súa soltura en dúas fases e a súa memoria), por realimentación, e a etapa de válvulas.
