@@ -130,12 +130,13 @@ void BOProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     os->initProcessing ((size_t) ANACO);
     optico.preparar (sr * 2.0);
     optico.axustar (axustes(), true);
-    latencia = (int) std::lround (os->getLatencyInSamples());
+    // o teito mira 1,5 ms por diante (baixa suave antes do pico): a latencia é a do sobremostrado e a súa
+    teito.preparar (sr, 0.080, 0.891, 0.0015);
+    latencia = (int) std::lround (os->getLatencyInSamples()) + teito.latencia();
     setLatencySamples (latencia);
     secoL.assign ((size_t) latencia + 1, 0.0f); secoR.assign ((size_t) latencia + 1, 0.0f); secoW = 0;
     const int n = std::max (samplesPerBlock, ANACO);
     secoOutL.assign ((size_t) n, 0.0f); secoOutR.assign ((size_t) n, 0.0f); monoR.assign ((size_t) n, 0.0f);
-    teito.preparar (sr, 0.080, 0.891);
     bypassS = pBypass->load() > 0.5f ? 1.0 : 0.0;
 }
 
@@ -153,7 +154,7 @@ void BOProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuff
 
     optico.axustar (axustes());
 
-    // o seco (para o bypass), atrasado o que tarda o sobremostrado
+    // o seco (para o bypass), atrasado o que tardan o sobremostrado e o teito
     float pe = 0;
     const int N = (int) secoL.size();
     for (int i = 0; i < n; ++i)

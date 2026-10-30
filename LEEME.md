@@ -31,7 +31,7 @@ Avisan porque os instaladores non levan sinatura de pago, non porque haxa nada r
 - **9 presets de fábrica**: Voz suave, Voz pop, Baixo, Bus de batería, Guitarra acústica, Pegar a mestura, Limitador, Piano e Esmagado en paralelo. Son tamén os programas do DAW.
 - **Presets propios, A/B e desfacer** (do núcleo común; `.bopreset`, en Documentos/Barullo Opto Comp/Presets).
 - A luz de acendido, ao carón do nome, é o bypass: o son pasa tal cal (coa latencia).
-- Un **limitador de seguridade** á saída: nunca pasa de −1 dBFS.
+- Un **limitador de seguridade** á saída: nunca pasa de −1 dBFS. Mira 1,5 ms por diante e baixa suave antes do pico, así non soa a clip (a latencia é a do sobremostrado e estes 1,5 ms; o DAW compénsaa).
 
 ## Como se fixo
 
@@ -60,7 +60,7 @@ entrada ─┬─ atenuador (resistencia en serie e a fotorresistencia a terra) 
 | `Source/PluginEditor.*` | A interface: o VU, a célula e os mandos |
 | `tools/RenderTest.cpp` | A proba |
 
-Usa o núcleo común de Escoita ([escoita-nucleo](https://github.com/callejodev-dotcom/escoita-nucleo), v0.4.0): o texto en galego, o aviso das versións novas, os presets propios, o A/B e o desfacer (`escoita::Estado`), o limitador de seguridade (`escoita::Teito`), a CI e os instaladores.
+Usa o núcleo común de Escoita ([escoita-nucleo](https://github.com/callejodev-dotcom/escoita-nucleo), v0.5.0): o texto en galego, o aviso das versións novas, os presets propios, o A/B e o desfacer (`escoita::Estado`), o limitador de seguridade (`escoita::Teito`), a CI e os instaladores.
 
 ## Probas
 
